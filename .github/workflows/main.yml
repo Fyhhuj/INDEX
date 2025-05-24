@@ -11,24 +11,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Set up Flutter
-      uses: subosito/flutter-action@v2
-      with:
-        flutter-version: '3.13.0' # اختر نسخة Flutter المناسبة لمشروعك
-         
-    - name: Install dependencies
-      run: flutter pub get
+      - name: Set up Flutter
+        uses: flutter-actions/setup-flutter@v2
+        with:
+          flutter-version: '3.16.0'
 
-    - name: Run analyzer
-      run: flutter analyze
+      - name: Install dependencies
+        run: flutter pub get
 
-    - name: Run tests
-      run: flutter test
+      - name: Run analyzer
+        run: flutter analyze
 
-    # إذا أردت بناء apk
-    - name: Build APK
-      run: flutter build apk --release
-      # يمكنك رفع ملف apk كـ artifact عند الحاجة
+      - name: Run tests
+        run: flutter test
+
+      - name: Build APK
+        run: flutter build apk --release
