@@ -34,7 +34,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace = "net.examnet.semo" // تأكد من أن هذا هو معرف التطبيق الخاص بك
+    namespace = "net.examnet.index" // تأكد من أن هذا هو معرف التطبيق الخاص بك
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -44,7 +44,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "net.examnet.semo" // تأكد من أن هذا هو معرف التطبيق الخاص بك
+        applicationId = "net.examnet.index" // تأكد من أن هذا هو معرف التطبيق الخاص بك
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutterVersionCode.toInteger()
