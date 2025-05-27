@@ -1,0 +1,64 @@
+# اسم سير العمل الذي سيظهر في GitHub Actions
+name: Flutter APK Build
+
+# تحديد متى سيتم تشغيل سير العمل هذا
+on:
+  # تشغيل سير العمل عند دفع (push) التغييرات إلى فرع 'main'
+  push:
+    branches:
+      - main
+  # تشغيل سير العمل يدويًا من واجهة GitHub Actions
+  workflow_dispatch:
+
+# تحديد المهام (jobs) التي سيتم تنفيذها
+jobs:
+  build_apk:
+    # تحديد نظام التشغيل الذي ستعمل عليه المهمة
+    runs-on: ubuntu-latest
+
+    # خطوات تنفيذ المهمة
+    steps:
+      # الخطوة 1: سحب (checkout) كود المستودع
+      - name: Checkout Repository
+        uses: actions/checkout@v4 # يستخدم الإجراء لسحب الكود من المستودع
+
+      # الخطوة 2: إعداد بيئة Flutter
+      # يستخدم هذا الإجراء (action) لتثبيت Flutter وإعداد البيئة
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          # تحديد إصدار Flutter الذي تريد استخدامه.
+          # 3.19.6 هو إصدار مستقر ومتوافق مع Dart SDK 3.0.7
+          flutter-version: '3.19.6' 
+
+      # خطوة اختيارية للتحقق من إصدارات Flutter و Dart (مفيدة لتصحيح الأخطاء)
+      - name: Verify Flutter and Dart Versions
+        run: |
+          flutter --version
+          dart --version
+
+      # الخطوة 3: جلب تبعيات Flutter
+      # يقوم بتشغيل 'flutter pub get' لتنزيل جميع الباقات المطلوبة
+      - name: Get Flutter Dependencies
+        run: flutter pub get
+
+      # الخطوة 4: بناء ملف APK
+      # يستخدم الأمر 'flutter build apk --release' لإنشاء نسخة الإصدار من التطبيق
+      # `--release` يضمن أن يكون البناء محسّنًا وجاهزًا للتوزيع
+      - name: Build Flutter APK
+        run: flutter build apk --release
+
+      # الخطوة 5: رفع ملف APK كـ 'artifact' (مخرجات سير العمل)
+      # هذا يسمح لك بتنزيل ملف APK الناتج مباشرة من صفحة GitHub Actions بعد اكتمال البناء
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release-apk # اسم الملف الناتج الذي سيظهر في GitHub Actions
+          path: build/app/outputs/flutter-apk/app-release.apk # المسار الذي يتم فيه إنشاء ملف APK
+
+          # إذا كنت تفضل بناء Android App Bundle (AAB) لـ Google Play Store،
+          # يمكنك تغيير الأمر في الخطوة 4 إلى:
+          # flutter build appbundle --release
+          # وتغيير المسار هنا إلى:
+          # path: build/app/outputs/bundle/release/app-release.aab
+
