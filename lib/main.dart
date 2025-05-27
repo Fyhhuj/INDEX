@@ -32,8 +32,8 @@ initializeFirebase() async {
   });
 }
 
-class Semo extends StatelessWidget {
-  const Semo({super.key});
+class index extends StatelessWidget {
+  const index({super.key});
 
   @override
   Widget build(BuildContext context) {
