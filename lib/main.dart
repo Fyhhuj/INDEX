@@ -1,26 +1,27 @@
-import 'dart:async';
+import 'dart:async'; // تم تضمين هذا الاستيراد لأنه موجود في الكود الأصلي
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:semo/firebase_options.dart';
-import 'package:semo/screens/splash.dart';
-import 'package:semo/utils/preferences.dart';
+// *** تم تغيير 'package:semo/' إلى 'package:index/' في جميع الاستيرادات ***
+import 'package:index/firebase_options.dart'; 
+import 'package:index/screens/splash.dart';
+import 'package:index/utils/preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   GoogleFonts.config.allowRuntimeFetching = false;
   await Preferences.init();
   await initializeFirebase();
-  runApp(Semo());
+  runApp(const Semo()); // استخدام const هنا إذا كان Widget لا يتغير
 }
 
 initializeFirebase() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  FirebaseCrashlytics crashlytics = await FirebaseCrashlytics.instance;
+  FirebaseCrashlytics crashlytics = FirebaseCrashlytics.instance; // إزالة await الزائدة
   runZonedGuarded<Future<void>>(() async {
     if (!kIsWeb) {
       await crashlytics.setCrashlyticsCollectionEnabled(!kDebugMode);
@@ -37,82 +38,83 @@ class Semo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Semo',
+      title: 'Index', // تم تغيير العنوان الافتراضي هنا إلى 'Index'
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
         brightness: Brightness.dark,
-        primaryColor: Color(0xFFAB261D),
-        scaffoldBackgroundColor: Color(0xFF120201),
-        dialogBackgroundColor: Color(0xFF250604),
-        cardColor: Color(0xFF250604),
+        primaryColor: const Color(0xFFAB261D),
+        scaffoldBackgroundColor: const Color(0xFF120201),
+        dialogBackgroundColor: const Color(0xFF250604),
+        cardColor: const Color(0xFF250604),
         appBarTheme: AppBarTheme(
           scrolledUnderElevation: 0,
-          backgroundColor: Color(0xFF120201),
+          backgroundColor: const Color(0xFF120201),
           titleTextStyle: GoogleFonts.freckleFace(
-            textStyle: TextStyle(
+            textStyle: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.w900,
               color: Colors.white,
             ),
           ),
-          iconTheme: IconThemeData(color: Colors.white),
+          iconTheme: const IconThemeData(color: Colors.white),
           centerTitle: false,
         ),
         textTheme: TextTheme(
           titleLarge: GoogleFonts.freckleFace(
-            textStyle: TextStyle(
+            textStyle: const TextStyle(
               fontSize: 38,
               fontWeight: FontWeight.w900,
               color: Colors.white,
             ),
           ),
           titleMedium: GoogleFonts.freckleFace(
-            textStyle: TextStyle(
+            textStyle: const TextStyle(
               fontSize: 32,
               fontWeight: FontWeight.w900,
               color: Colors.white,
             ),
           ),
           titleSmall: GoogleFonts.freckleFace(
-            textStyle: TextStyle(
+            textStyle: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.w900,
               color: Colors.white,
             ),
           ),
           displayLarge: GoogleFonts.lexend(
-            textStyle: TextStyle(
+            textStyle: const TextStyle(
               fontSize: 18,
               color: Colors.white,
             ),
           ),
           displayMedium: GoogleFonts.lexend(
-            textStyle: TextStyle(
+            textStyle: const TextStyle(
               fontSize: 15,
               color: Colors.white,
             ),
           ),
           displaySmall: GoogleFonts.lexend(
-            textStyle: TextStyle(
+            textStyle: const TextStyle(
               fontSize: 14,
               color: Colors.white,
             ),
           ),
         ),
-        progressIndicatorTheme: ProgressIndicatorThemeData(color: Color(0xFFAB261D)),
-        tabBarTheme: TabBarTheme(
+        progressIndicatorTheme: const ProgressIndicatorThemeData(color: Color(0xFFAB261D)),
+        // *** تم تصحيح استخدام TabBarTheme ***
+        tabBarTheme: const TabBarTheme( // إضافة const
           indicatorColor: Color(0xFFAB261D),
           labelColor: Color(0xFFAB261D),
           dividerColor: Color(0xFF250604),
           unselectedLabelColor: Colors.white54,
         ),
-        menuTheme: MenuThemeData(
+        menuTheme: const MenuThemeData( // إضافة const
           style: MenuStyle(
             backgroundColor: WidgetStatePropertyAll(Color(0xFF250604)),
           ),
         ),
-        bottomSheetTheme: BottomSheetThemeData(
+        bottomSheetTheme: const BottomSheetThemeData( // إضافة const
           showDragHandle: true,
           backgroundColor: Color(0xFF250604),
           shape: RoundedRectangleBorder(
@@ -121,12 +123,13 @@ class Semo extends StatelessWidget {
             ),
           ),
         ),
-        snackBarTheme: SnackBarThemeData(
+        snackBarTheme: const SnackBarThemeData( // إضافة const
           backgroundColor: Color(0xFF250604),
           behavior: SnackBarBehavior.floating,
         )
       ),
-      home: Splash(),
+      home: const Splash(), // إضافة const
     );
   }
 }
+
