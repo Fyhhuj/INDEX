@@ -27,9 +27,9 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          # تحديد إصدار Flutter الذي تريد استخدامه.
-          # 3.19.6 هو إصدار مستقر ومتوافق مع Dart SDK 3.0.7
-          flutter-version: '3.19.6' 
+          # *** التغيير هنا: تحديث إصدار Flutter إلى 3.32.0 ***
+          # هذا الإصدار يأتي مع Dart SDK 3.8.0، والذي يلبي متطلبات مشروعك (>=3.4.0 <4.0.0)
+          flutter-version: '3.32.0' 
 
       # خطوة اختيارية للتحقق من إصدارات Flutter و Dart (مفيدة لتصحيح الأخطاء)
       - name: Verify Flutter and Dart Versions
