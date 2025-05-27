@@ -1,27 +1,22 @@
 buildscript {
-    // تحديد إصدار Kotlin. 1.8.20 هو إصدار شائع ومتوافق.
-    ext.kotlin_version = '1.8.20' 
+    ext.kotlin_version = '1.8.20' // إصدار Kotlin
     repositories {
-        // مستودعات Google و Maven Central ضرورية لجلب التبعيات
         google()
         mavenCentral()
     }
 
     dependencies {
-        // تحديث إصدار Android Gradle Plugin (AGP) إلى 8.1.1
-        // هذا الإصدار متوافق مع Gradle 8.x و Flutter 3.32.0
-        classpath 'com.android.tools.build:gradle:8.1.1' 
-        // تبعية Kotlin Gradle Plugin
+        // *** تأكد من أن هذا السطر هو 8.3.0 أو أعلى ***
+        // هذا هو إصدار Android Gradle Plugin (AGP)
+        classpath 'com.android.tools.build:gradle:8.3.0' 
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        // إضافة Google Services Plugin لـ Firebase (ضروري لـ cloud_firestore)
-        // 4.4.1 هو أحدث إصدار مستقر حاليًا
+        // إضافة Google Services Plugin لـ Firebase
         classpath 'com.google.gms:google-services:4.4.1' 
     }
 }
 
 allprojects {
     repositories {
-        // مستودعات Google و Maven Central ضرورية لجميع المشاريع الفرعية
         google()
         mavenCentral()
     }
