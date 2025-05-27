@@ -34,7 +34,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace = "net.examnet.index" // تأكد من أن هذا هو معرف التطبيق الخاص بك
+    namespace = "net.examnet.semo" // تأكد من أن هذا هو معرف التطبيق الخاص بك
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -44,13 +44,13 @@ android {
     }
 
     defaultConfig {
-        applicationId = "net.examnet.index" // تأكد من أن هذا هو معرف التطبيق الخاص بك
+        applicationId = "net.examnet.semo" // تأكد من أن هذا هو معرف التطبيق الخاص بك
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName
         multiDexEnabled true
-        minSdkVersion 23 // يمكنك ترك هذا كما هو، فهو يضمن الحد الأدنى المطلوب
+        minSdkVersion 23 
     }
 
     signingConfigs {
@@ -80,7 +80,7 @@ android {
     }
 
     dependencies {
-        // *** التغيير هنا: تحديث multidex إلى إصدار AndroidX ***
+        // *** تأكد من أن هذا السطر هو 'androidx.multidex:multidex:2.0.1' ***
         implementation 'androidx.multidex:multidex:2.0.1' 
     }
 }
