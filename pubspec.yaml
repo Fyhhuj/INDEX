@@ -21,7 +21,7 @@ dependencies:
   loading_animation_widget: ^1.2.0+4
   carousel_slider: ^4.2.1
   cached_network_image: ^3.3.1
-  better_player: ^0.0.83 
+  better_player: 0.0.83 
   lottie: ^3.1.0
   shared_preferences: ^2.2.3
   cloud_firestore: ^4.17.0 
