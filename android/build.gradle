@@ -6,12 +6,11 @@ buildscript {
     }
 
     dependencies {
-        // *** تأكد من أن هذا السطر هو 8.3.0 أو أعلى ***
-        // هذا هو إصدار Android Gradle Plugin (AGP)
-        classpath 'com.android.tools.build:gradle:8.3.0' 
+        // إصدار Android Gradle Plugin (AGP) يجب أن يكون 8.3.0 أو أعلى
+        classpath 'com.android.tools.build:gradle:8.3.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        // إضافة Google Services Plugin لـ Firebase
-        classpath 'com.google.gms:google-services:4.4.1' 
+        // إضافة Google Services Plugin لـ Firebase (اختياري إذا كنت تستخدم Firebase)
+        classpath 'com.google.gms:google-services:4.4.1'
     }
 }
 
@@ -22,6 +21,7 @@ allprojects {
     }
 }
 
+// إعدادات مسارات البناء
 rootProject.buildDir = "../build"
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
@@ -30,7 +30,7 @@ subprojects {
     project.evaluationDependsOn(":app")
 }
 
+// مهمة تنظيف المشروع
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }
-
