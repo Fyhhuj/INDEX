@@ -23,11 +23,6 @@ jobs:
           flutter --version
           dart --version
 
-      # ✅ تعطيل دعم Windows لحل wakelock
-      - name: Disable Windows support
-        run: flutter config --no-enable-windows-desktop
-
-      # 🧹 تنظيف الكاش
       - name: Clear Flutter and Gradle Caches
         run: |
           flutter clean
