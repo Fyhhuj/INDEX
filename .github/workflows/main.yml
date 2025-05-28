@@ -1,61 +1,49 @@
-# اسم سير العمل الذي سيظهر في GitHub Actions
 name: Flutter APK Build
 
-# تحديد متى سيتم تشغيل سير العمل هذا
 on:
-  # تشغيل سير العمل عند دفع (push) التغييرات إلى فرع 'main'
   push:
     branches:
       - main
-  # تشغيل سير العمل يدويًا من واجهة GitHub Actions
   workflow_dispatch:
 
-# تحديد المهام (jobs) التي سيتم تنفيذها
 jobs:
   build_apk:
-    # تحديد نظام التشغيل الذي ستعمل عليه المهمة
     runs-on: ubuntu-latest
-
-    # خطوات تنفيذ المهمة
     steps:
-      # الخطوة 1: سحب (checkout) كود المستودع
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # الخطوة 2: إعداد بيئة Flutter
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.32.0' # تأكد من أن هذا هو الإصدار الذي تريده
+          flutter-version: '3.32.0'
 
-      # خطوة للتحقق من الإصدارات (مفيدة لتصحيح الأخطاء)
       - name: Verify Flutter and Dart Versions
         run: |
           flutter --version
           dart --version
 
-      # *** خطوة جديدة: مسح ذاكرة التخزين المؤقت لـ Flutter/Gradle ***
-      # هذا سيجبر GitHub Actions على إعادة جلب التبعيات من الصفر
+      # ✅ تعطيل دعم Windows لحل wakelock
+      - name: Disable Windows support
+        run: flutter config --no-enable-windows-desktop
+
+      # 🧹 تنظيف الكاش
       - name: Clear Flutter and Gradle Caches
         run: |
           flutter clean
           rm -rf "$HOME/.pub-cache"
           rm -rf "$HOME/.gradle/caches"
           rm -rf "$HOME/.gradle/wrapper"
-        shell: bash # تأكد من استخدام bash لتنفيذ الأوامر
+        shell: bash
 
-      # الخطوة 3: جلب تبعيات Flutter
       - name: Get Flutter Dependencies
         run: flutter pub get
 
-      # الخطوة 4: بناء ملف APK
       - name: Build Flutter APK
         run: flutter build apk --release
 
-      # الخطوة 5: رفع ملف APK كـ 'artifact'
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: app-release-apk
           path: build/app/outputs/flutter-apk/app-release.apk
-
