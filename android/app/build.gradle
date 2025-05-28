@@ -26,12 +26,12 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace = "net.examnet.semo" // 👈 مهم: حل مشكلة namespace
+    namespace = "net.examnet.index" // 👈 مهم: حل مشكلة namespace
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
     defaultConfig {
-        applicationId = "net.examnet.semo"
+        applicationId = "net.examnet.index"
         minSdk = 23
         targetSdk = flutter.targetSdkVersion
         versionCode = flutterVersionCode.toInteger()
